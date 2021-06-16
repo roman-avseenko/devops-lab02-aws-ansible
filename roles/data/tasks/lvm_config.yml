@@ -1,0 +1,24 @@
+---
+- name: Install lvm2
+  yum:
+    name: "{{ lvm_package }}"
+    state: latest
+
+- name: Create volume group
+  lvg:
+    vg: "{{ vg_name }}"
+    pvs: "{{ device }}"
+
+- name: Configure logical volumes
+  include_tasks: volumes_create.yml
+  loop:
+    - name: data01
+      size: 20%VG
+      fs: ext4
+      mount_point: /data01
+
+    - name: data02
+      size: 80%VG
+      fs: ext3
+      mount_point: /data02
+...

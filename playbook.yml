@@ -1,0 +1,15 @@
+---
+- name: Web server provisioning
+  hosts: Web
+  become: true
+  roles:
+    - common
+    - web
+
+- name: Data server provisioning
+  hosts: Data
+  become: true
+  roles:
+    - common
+    - data
+...

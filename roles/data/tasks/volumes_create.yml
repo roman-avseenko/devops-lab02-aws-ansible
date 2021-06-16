@@ -1,0 +1,24 @@
+---
+- name: Create logical volume {{ item.name }}
+  lvol:
+    vg: data
+    lv: "{{ item.name }}"
+    size: "{{ item.size }}"
+
+- name: Configure filesystem for LV {{ item.name }}
+  filesystem:
+    fstype: "{{ item.fs }}"
+    dev: /dev/data/{{ item.name }}
+
+- name: Create mount point for LV {{ item.name }}
+  file:
+    path: "{{ item.mount_point }}"
+    state: directory
+
+- name: Mount {{ item.name }}
+  mount:
+    path: "{{ item.mount_point }}"
+    src: /dev/mapper/{{ vg_name }}-{{ item.name }}
+    fstype: "{{ item.fs }}"
+    state: mounted
+...

@@ -1,0 +1,4 @@
+---
+- name: LVM configuration
+  import_tasks: lvm_config.yml
+...

@@ -1,0 +1,5 @@
+---
+lvm_package: lvm2
+vg_name: data
+device: /dev/xvdb
+...
