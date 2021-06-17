@@ -12,9 +12,9 @@
     mode: '0644'
 
 - name: Configure sshd to display banner
-  lineinfile:
-    path: "{{ ssh_config }}"
-    regexp: '.*Banner.*'
-    line: 'Banner {{ issue_src }}'
+  template:
+    src: sshd_config.j2
+    dest: "{{ ssh_config_file }}"
+    validate: '/usr/sbin/sshd -T -f %s'
   notify: sshd service restart
 ...
