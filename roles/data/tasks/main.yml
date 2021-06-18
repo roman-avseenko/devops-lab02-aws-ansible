@@ -11,5 +11,5 @@
 
 - name: Logical volumes configuration
   include_tasks: lv_config.yml
-  loop: "{{ lvm.items() | list }}"
+  loop: "{{ lvm | dict2items }}"
 ...

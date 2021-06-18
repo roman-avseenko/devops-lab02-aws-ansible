@@ -2,23 +2,23 @@
 - name: Create logical volumes
   lvol:
     vg: "{{ vg_name }}"
-    lv: "{{ item[0] }}"
-    size: "{{ item[1].get('size') }}VG"
+    lv: "{{ item.key }}"
+    size: "{{ item.value.get('size') }}VG"
 
 - name: Configure filesystem for LVs
   filesystem:
-    fstype: "{{ item[1].get('fs') }}"
-    dev: /dev/mapper/{{ vg_name }}-{{ item[0] }}
+    fstype: "{{ item.value.get('fs') }}"
+    dev: /dev/mapper/{{ vg_name }}-{{ item.key }}
 
 - name: Create mount point for LVs
   file:
-    path: "/{{ item[0] }}"
+    path: "/{{ item.key }}"
     state: directory
 
 - name: Mount LVs
   mount:
-    path: "/{{ item[0] }}"
-    src: /dev/mapper/{{ vg_name }}-{{ item[0] }}
-    fstype: "{{ item[1].get('fs') }}"
+    path: "/{{ item.key }}"
+    src: /dev/mapper/{{ vg_name }}-{{ item.key }}
+    fstype: "{{ item.value.get('fs') }}"
     state: mounted
 ...
