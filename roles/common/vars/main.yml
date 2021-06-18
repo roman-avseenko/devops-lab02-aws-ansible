@@ -4,5 +4,5 @@ chrony_service: chronyd
 
 motd_src: /etc/motd
 issue_src: /etc/issue
-ssh_config: /etc/ssh/sshd_config
+ssh_config_file: /etc/ssh/sshd_config
 ...
